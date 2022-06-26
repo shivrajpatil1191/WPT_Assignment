@@ -1,0 +1,196 @@
+<html>
+
+<head>
+	<script>
+
+		window.addEventListener('DOMContentLoaded', () => {
+
+
+			let employees = [{ empno: 1, empname: "Amit", email: "a1@12", deptid: 1 },
+			{ empno: 2, empname: "Atul", email: "a2@12", deptid: 2 },
+			{ empno: 3, empname: "Ajay", email: "a3@12", deptid: 3 },
+			{ empno: 4, empname: "Ankit", email: "a4@12", deptid: 1 }];
+
+
+			function getempDetailsLogic(empno) {
+				let opt = { result: false, employees: {} };
+				for (let i = 0; i < employees.length; i++) {
+					if (employees[i].empno == empno) {
+						opt.result = true;
+						opt.empdetails = employees[i];
+						break;
+					}
+				}
+				return opt;
+			}
+			const numberid = document.querySelector("#empno");
+			numberid.addEventListener('blur', () => {
+				console.log("blur event working");
+				
+				let input = document.querySelector("#empno").value;
+				console.log("Input is " + input);
+				//let opt= { result: true, empdetails:{empno:3,empname:'Amit',email:'am@123',deptid:106}};
+				let opt = getempDetailsLogic(input);
+				if (opt.result) {
+					document.querySelector("#empname").value = opt.empdetails.empname;
+					document.querySelector("#email").value = opt.empdetails.email;
+					document.querySelector("#deptid").value = opt.empdetails.deptid;
+
+					document.querySelector("#modify").disabled = false;
+					document.querySelector("#remove").disabled = false;
+					document.querySelector("#msg").innerText = "item details found";
+
+				}
+				else {
+					document.querySelector("#add").disabled = false;
+					document.querySelector("#msg").innerText = "item details not found";
+
+
+				}
+
+			});
+
+
+
+
+			const addid = document.querySelector("#add");
+			addid.addEventListener('click', () => {
+				let input = document.querySelector("#empno").value;
+				//let opt= false;
+				let opt = getempDetailsLogic(input);
+
+				//if(opt.result){
+				//console.log("empno found");
+
+				if (!opt.result) {
+					// opt.employees.push.empno(parseInt(document.querySelector("#empno").value));
+
+					console.log(opt.empdetails);
+					opt.empdetails.empno = document.querySelector("#empno").value;
+					opt.empdetails.empname = document.querySelector("#empname").value;
+					opt.empdetails.email = document.querySelector("#email").value;
+					opt.empdetails.deptid = document.querySelector("#deptid").value;
+					opt.empdetails.email = document.querySelector("#email").value;
+
+				}
+
+				/*opt.employees.push((parseInt(document.querySelector("#empno").value)),
+									(document.querySelector("#empname").value),
+									(document.querySelector("#email").value),
+									(parseInt(document.querySelector("#deptid").value)));
+								   // opt.employees.push(document.querySelector("#empname").value);
+								   // opt.employees.push(document.querySelector("#email").value);
+									// opt.employees.push(parseInt(document.querySelector("#deptid").value));
+									console.log(opt.employees);
+									document.querySelector("#add").disabled = true;
+							    
+				
+						
+						
+						document.querySelector("#add").disabled=true;
+						document.querySelector("#msg").innerText="Number found cant add";
+						}
+						
+						/*else{
+						console.log("Added Sucessful");
+						opt.empdetails.empname=document.querySelector("#empname").value;
+						opt.empdetails.email=document.querySelector("#email").value;
+						opt.empdetails.deptid=document.querySelector("#deptid").value;
+						document.querySelector("#modify").disabled=true;
+						document.querySelector("#remove").disabled=true;
+						document.querySelector("#add").disabled=false;
+						document.querySelector("#msg").innerText="Added Sucessful";
+						}*/
+			});
+
+
+
+			const modifyid = document.querySelector("#modify");
+			modifyid.addEventListener('click', () => {
+				let input = document.querySelector("#empno").value;
+				let opt = getempDetailsLogic(input);
+				//let newempno = prompt("Enter new empno");
+				if (opt) {
+
+					opt.empdetails.empname = document.querySelector("#empname").value;
+					opt.empdetails.email = document.querySelector("#email").value;
+					opt.empdetails.deptid = document.querySelector("#deptid").value;
+					opt.empdetails.email = document.querySelector("#email").value;
+					document.querySelector("#empno").value = "";
+					document.querySelector("#empname").value = "";
+					document.querySelector("#email").value = "";
+					document.querySelector("#deptid").value = "";
+					console.log("Edit sucessfull");
+					document.querySelector("#modify").disabled = false;
+					document.querySelector("#msg").innerText = "Modifed Sucessfully";
+
+					//let input=newempno;
+					//console.log("new empno: "+newempno);
+
+
+				}
+				else {
+					console.log("empno not found");
+				}
+			});
+
+			const removeid = document.querySelector("#remove");
+			removeid.addEventListener('click', () => {
+				let input = document.querySelector("#empno").value;
+				let opt = getempDetailsLogic(input);
+				if (opt) {
+					console.log("empno deleted");
+					document.querySelector("#empno").value = "";
+					document.querySelector("#empname").value = "";
+					document.querySelector("#email").value = "";
+					document.querySelector("#deptid").value = "";
+					opt.empdetails.empno = "";
+					opt.empdetails.empname = "";
+					opt.empdetails.email = "";
+					opt.empdetails.deptid = "";
+					opt.empdetails.email = "";
+					document.querySelector("#msg").innerText = "empno removed";
+					document.querySelector("#remove").disabled = true;
+					document.querySelector("#modify").disabled = true;
+				}
+				else {
+					console.log("empno not found cant remove");
+					document.querySelector("#msg").innerText = "Cant remove";
+				}
+			});
+
+
+			const viewallid = document.querySelector("#viewall");
+			viewallid.addEventListener('click', () => {
+				let input = document.querySelector("#empno").value;
+				document.querySelector("#msg1").innerText = input;
+			});
+
+
+
+
+
+		});
+
+
+	</script>
+</head>
+
+<body>
+	<input type="text" id="empno" placeholder="empno" /><span id="msg"> x </span>
+	<Br /><input type="text" id="empname" placeholder="empname" />
+	<Br /><input type="text" id="email" placeholder="email" />
+	<Br /><input type="text" id="deptid" placeholder="deptid" />
+	<Br /><input type="button" disabled id="add" value="add" />
+	<input type="button" disabled id="modify" value="modify" />
+	<input type="button" disabled id="remove" value="remove" />
+	<input type="button" id="viewall" value="viewall" />
+	<input type="button" id="veiwondeptid" value="veiwondeptid" />
+	<Br /><span id="msg1"> </span>
+
+</body>
+
+
+
+
+</html>

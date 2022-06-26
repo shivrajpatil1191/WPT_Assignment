@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log("welcome to DOM")
+            let num = document.querySelector('#num');
+
+            num.addEventListener('blur', (event) => {
+
+
+                //console.log(result);
+                if (getdetail()) {
+                    console.log("in if block of blur");
+                    document.querySelector("#editb").disabled = false;
+                    document.querySelector("#deleteb").disabled = false;
+                    document.querySelector("#addb").disabled = true;
+                    
+                }
+                else {
+                    console.log("in else block of blur");
+                    document.querySelector("#addb").disabled = false;
+                    document.querySelector("#editb").disabled = true;
+                    document.querySelector("#deleteb").disabled = true;
+                    
+                }
+
+
+            });
+
+            let add = document.querySelector('#addb');
+            add.addEventListener('click', () => {
+                console.log("add button working");
+
+                if (getdetail()) {
+                    document.querySelector("#editb").disabled = false;
+                    document.querySelector("#deleteb").disabled = false;
+                    document.querySelector("#addb").disabled = true;
+                    
+                }
+                else {
+                    arr.push(document.querySelector('#num').value);
+                    document.querySelector("#editb").disabled = true;
+                    document.querySelector("#deleteb").disabled = true;
+                    document.querySelector("#addb").disabled = true;
+                    
+                }
+
+            });
+
+            let edit = document.querySelector("#editb");
+            edit.addEventListener('click', () => {
+                let pm = prompt("add number");
+                let abc = document.querySelector('#num').value;
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] == document.querySelector("#num").value) {
+                        console.log("found");
+                        result = true;
+                        arr[i] = parseInt(pm);
+                        console.log(arr);
+                        break;
+                    }
+
+                }
+            });
+
+            let delete1 = document.querySelector('#deleteb');
+            delete1.addEventListener('click', () => {
+                console.log('delete clicked');
+                
+                    arr.pop(document.querySelector('#num').value);
+                    console.log('delete working');
+                
+            });
+
+            let view = document.querySelector('#viewb');
+            view.addEventListener('click', () => {
+                console.log("view clicked");
+                document.querySelector('#msg2').innerHTML= arr;
+            });
+
+
+
+
+
+
+            let arr = [10, 20, 30, 40, 50]
+
+            let result = false;
+            function getdetail() {
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] == document.querySelector("#num").value) {
+                        console.log("found");
+                        result = true;
+                        break;
+                    }
+
+                }
+                return result;
+            }
+
+
+
+
+        });
+
+
+
+
+
+
+
+    </script>
+
+
+
+    <input id="num" type="number" placeholder="number"><br>
+
+
+    <br> <button id="addb" disabled>Add</button>
+    <button id="editb" disabled>Edit</button>
+    <button id="deleteb" disabled>Delete</button>
+    <button id="viewb" >View</button>
+    <br><span id="msg2">y</span>
+
+
+
+</body>
+
+</html>
